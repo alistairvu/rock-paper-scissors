@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function computerPlay() {
+        let index = Math.floor(Math.random() * 3);
+        if (index == 0) {
+          return "Rock";
+        } else if (index == 1) {
+          return "Paper";
+        } else {
+          return "Scissors";
+        }
+      }
+      function resultRound(playerSelection, computerSelection) {
+        if (playerSelection == computerSelection) {
+          return 0;
+        } else if (
+          (playerSelection == "Rock" && computerSelection == "Paper") ||
+          (playerSelection == "Paper" && computerSelection == "Scissors") ||
+          (playerSelection == "Scissors" && playerSelection == "Rock")
+        ) {
+          return -1;
+        } else {
+          return 1;
+        }
+      }
+      function playRound() {
+        let playerSelectionRaw = prompt("Enter your selection:");
+        const playerSelection =
+          playerSelectionRaw.charAt(0).toUpperCase() +
+          playerSelectionRaw.substring(1).toLowerCase();
+        const computerSelection = computerPlay();
+        let ind = resultRound(playerSelection, computerSelection);
+        if (ind == 0) {
+          return ["It's a Tie!", 0, 0];
+        } else if (ind == -1) {
+          return [
+            `You Lose! ${computerSelection} beats ${playerSelection}`,
+            0,
+            1,
+          ];
+        } else {
+          return [
+            `You Win! ${playerSelection} beats ${computerSelection}`,
+            1,
+            0,
+          ];
+        }
+      }
+      function game() {
+        let playerScore = 0;
+        let computerScore = 0;
+        for (let i = 0; i < 5; i++) {
+          let arr = playRound();
+          console.log(arr[0]);
+          playerScore += arr[1];
+          computerScore += arr[2];
+        }
+        if (playerScore == computerScore) {
+          return "It's a Tie!";
+        } else if (playerScore < computerScore) {
+          return "You Lose!";
+        } else {
+          return "You Win!";
+        }
+      }
+      console.log(game());
+    </script>
+  </body>
+</html>
